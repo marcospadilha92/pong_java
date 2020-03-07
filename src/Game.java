@@ -1,12 +1,14 @@
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
-public class Game extends Canvas implements Runnable {	
+public class Game extends Canvas implements Runnable, KeyListener {	
 	
 	/**
 	 * padrão de serialização de objeto Java
@@ -39,8 +41,10 @@ public class Game extends Canvas implements Runnable {
 	
 	public Game() {
 		this.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE ));
-		
-		player = new Player();
+		//a própria classe criará um Key Listener
+		this.addKeyListener(this);
+		// subtraindo -10 porque é a altura do jogador
+		player = new Player(100, HEIGHT - 10);
 	}
 	
 	public void tick() {
@@ -76,6 +80,28 @@ public class Game extends Canvas implements Runnable {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			player.right = true;
+		}
+		else if(e.getKeyCode() == KeyEvent.VK_LEFT){
+			player.left = true;
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
