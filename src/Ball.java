@@ -53,9 +53,22 @@ public class Ball {
 		Rectangle boundsEnemy = new Rectangle((int)Game.enemy.x, (int)Game.enemy.y, Game.enemy.width, Game.enemy.height);
 		
 		if (bounds.intersects(boundsPlayer)) {
-			dy*=-1;
+			
+			int angle = new Random().nextInt(359);
+			this.dx = Math.cos(Math.toRadians(angle));
+			this.dy = Math.sin(Math.toRadians(angle));
+			
+			if(dy>0) {
+				dy*=-1;
+			}
 		} else if (bounds.intersects(boundsEnemy)) {
-			dy*=-1;
+			int angle = new Random().nextInt(359);
+			this.dx = Math.cos(Math.toRadians(angle));
+			this.dy = Math.sin(Math.toRadians(angle));
+			
+			if(dy<0) {
+				dy*=-1;
+			}
 		}
 	}
 	
